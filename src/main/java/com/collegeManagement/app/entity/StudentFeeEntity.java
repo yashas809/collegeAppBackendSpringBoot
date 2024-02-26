@@ -46,7 +46,7 @@ public class StudentFeeEntity {
     @Getter
     @Setter
     @Column(name ="ReceiptFK")
-    private double receiptFK;
+    private long receiptFK;
 
     @Getter
     @Setter

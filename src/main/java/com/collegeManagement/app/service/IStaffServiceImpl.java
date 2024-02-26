@@ -60,34 +60,29 @@ public class IStaffServiceImpl implements IStaffService
     {
         try{
 
-            if(request.getRoleName()!=null)
+            if(request.getRoleName()!=null && request.getDepartmentName()!=null)
             {
                 roleentitydata = rolerepository.findByroleName(request.getRoleName());
+                deptEntity =  deptRepository.findBydepartmentName(request.getDepartmentName());
             }
-
-            if(request.getDepartmentName()!=null)
-            {
-               deptEntity =  deptRepository.findBydepartmentName(request.getDepartmentName());
-            }
-
-            if(request.getLoginName()!=null && request.getPassword()!=null)
-            {
-                login.setLoginName(request.getLoginName());
-                login.setPassword(request.getPassword());
-                loginentity = loginService.createLogin(login);
-            }
-
             if(loginentity!=null && roleentitydata!=null && deptEntity.isPresent())
             {
+                if(request.getLoginName()!=null && request.getPassword()!=null)
+                {
+                    login.setLoginName(request.getLoginName());
+                    login.setPassword(request.getPassword());
+                    loginentity = loginService.createLogin(login);
+                }
                 entityData = StaffEntity.build(0l, request.getName(), LocalDateTime.now(),false,deptEntity.get().getId(),loginentity.getLoginPK(), roleentitydata.getRolePK());
                 entityData = staffreposiotry.save(entityData);
+                return entityData;
             }
 
         }catch (Exception e)
         {
             e.printStackTrace();
         }
-        return entityData;
+        return null;
     }
 
     @Override

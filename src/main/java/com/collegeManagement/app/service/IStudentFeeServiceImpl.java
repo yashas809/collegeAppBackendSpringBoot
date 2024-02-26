@@ -1,5 +1,6 @@
 package com.collegeManagement.app.service;
 
+import com.collegeManagement.app.dao.FeeReceiptDAO;
 import com.collegeManagement.app.dao.FeeStructure;
 import com.collegeManagement.app.dao.StudentFee;
 import com.collegeManagement.app.entity.FeeReceipt;
@@ -11,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class IStudentFeeServiceImpl implements IStudentFeeService
-{
+public class IStudentFeeServiceImpl implements IStudentFeeService {
 
     @Autowired
     StudentFeeRepository studentFeeRepository;
@@ -34,35 +35,28 @@ public class IStudentFeeServiceImpl implements IStudentFeeService
     DepartmentRepository departmentRepository;
 
     @Override
-    public StudentFee createEntry(StudentFee request)
-    {
+    public StudentFee createEntry(StudentFee request) {
         try {
 
-            if(request.getUsn()!=null && request.getSem()!=0 && request.getDeptName()!=null)
-            {
+            if (request.getUsn() != null && request.getSem() != 0 && request.getDeptName() != null) {
                 Optional<StudentEntity> optionalStudentEntity = studentRepository.findByusn(request.getUsn());
-                Optional<FeeStructureEntity> optionalFeeStructureEntity= feeStructureRepository.findBydeptFKAndSem(departmentRepository.findBydepartmentName(request.getDeptName()).get().getId(), request.getSem());
-                if(optionalFeeStructureEntity.isPresent() && optionalStudentEntity.isPresent())
-                {
+                Optional<FeeStructureEntity> optionalFeeStructureEntity = feeStructureRepository.findBydeptFKAndSem(departmentRepository.findBydepartmentName(request.getDeptName()).get().getId(), request.getSem());
+                if (optionalFeeStructureEntity.isPresent() && optionalStudentEntity.isPresent()) {
                     StudentEntity studentEntityData = optionalStudentEntity.get();
                     FeeStructureEntity feeStructureEntityData = optionalFeeStructureEntity.get();
-                    FeeReceipt FeeReceiptentityData =FeeReceipt.build(0l, request.getFileData(), request.getFileName());
+                    FeeReceipt FeeReceiptentityData = FeeReceipt.build(0l, request.getFileData(), request.getFileName());
                     FeeReceiptentityData = studentFeeReceipt.save(FeeReceiptentityData);
-                    if(FeeReceiptentityData.getFeeReceiptPK()!=0l)
-                    {
-                        StudentFeeEntity studentFeeEntityData = StudentFeeEntity.build(0l,feeStructureEntityData.getFeeStructurePK(),studentEntityData.getStudentPK(),request.isFeePending(), request.getFeePaid(),
+                    if (FeeReceiptentityData.getFeeReceiptPK() != 0l) {
+                        StudentFeeEntity studentFeeEntityData = StudentFeeEntity.build(0l, feeStructureEntityData.getFeeStructurePK(), studentEntityData.getStudentPK(), request.isFeePending(), request.getFeePaid(),
                                 FeeReceiptentityData.getFeeReceiptPK(), LocalDate.now());
-
                         studentFeeEntityData = studentFeeRepository.save(studentFeeEntityData);
-
+                        request.setReceiptFK(studentFeeEntityData.getReceiptFK());
                         return request;
                     }
-
                 }
             }
             return null;
-        }catch (Exception exp)
-        {
+        } catch (Exception exp) {
             exp.printStackTrace();
         }
         return null;
@@ -70,18 +64,107 @@ public class IStudentFeeServiceImpl implements IStudentFeeService
 
     @Override
     public List<StudentFee> getStudentFeeDetails(String usn) {
+        if (usn != null) {
+            Optional<StudentEntity> optionalStudentEntity = studentRepository.findByusn(usn);
+            if (optionalStudentEntity.isPresent()) {
+                StudentEntity studentEntity = optionalStudentEntity.get();
+                Optional<List<StudentFeeEntity>> optionalStudentFeeRepository = studentFeeRepository.findBystudentFK(studentEntity.getStudentPK());
+                List<StudentFee> response = new ArrayList<StudentFee>();
+                if (optionalStudentFeeRepository.isPresent()) {
+                    List<StudentFeeEntity> studentFeeEntities = optionalStudentFeeRepository.get();
+                    for (StudentFeeEntity i : studentFeeEntities) {
+                        if (i.getReceiptFK() != 0l) {
+                            Optional<FeeReceipt> feeReceiptentityoptional = studentFeeReceipt.findById(i.getReceiptFK());
+                            if (feeReceiptentityoptional.isPresent()) {
+                                StudentFee entityData = StudentFee.build(usn, studentEntity.getSem(), departmentRepository.findById(studentEntity.getDeptfk()).get().getDepartmentName(),
+                                        null, feeReceiptentityoptional.get().getFileName(),
+                                        i.isFeePending(), i.getReceiptFK(), studentEntity.getStudentName(), i.getTotalFeePaid(), i.getCreatedDate());
+                                response.add(entityData);
+                            }
+                        }
+                    }
+                    return response;
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public List<StudentFee> getStudentFeeDetailsbySem(int sem) {
+        if (sem != 0) {
+            Optional<List<StudentEntity>> optionalStudentEntity = studentRepository.findBySem(sem);
+            if (optionalStudentEntity.isPresent()) {
+                List<StudentEntity> studentEntity = optionalStudentEntity.get();
+
+                for(StudentEntity stEntity : studentEntity){
+                Optional<List<StudentFeeEntity>> optionalStudentFeeRepository = studentFeeRepository.findBystudentFK(stEntity.getStudentPK());
+                List<StudentFee> response = new ArrayList<StudentFee>();
+                if (optionalStudentFeeRepository.isPresent()) {
+                    List<StudentFeeEntity> studentFeeEntities = optionalStudentFeeRepository.get();
+                    for (StudentFeeEntity i : studentFeeEntities) {
+                        if (i.getReceiptFK() != 0l) {
+                            Optional<FeeReceipt> feeReceiptentityoptional = studentFeeReceipt.findById(i.getReceiptFK());
+                            if (feeReceiptentityoptional.isPresent()) {
+                                StudentFee entityData = StudentFee.build(stEntity.getUsn(), stEntity.getSem(), departmentRepository.findById(stEntity.getDeptfk()).get().getDepartmentName(),
+                                        null, feeReceiptentityoptional.get().getFileName(),
+                                        i.isFeePending(), i.getReceiptFK(), stEntity.getStudentName(), i.getTotalFeePaid(), i.getCreatedDate());
+                                response.add(entityData);
+                            }
+                        }
+                    }
+                    return response;
+                }
+            }
+            }
+        }
         return null;
     }
 
     @Override
     public List<StudentFee> getAllFeeData() {
+
+                List<StudentEntity> studentEntity = studentRepository.findAll();
+                for(StudentEntity stEntity : studentEntity) {
+                    Optional<List<StudentFeeEntity>> optionalStudentFeeRepository = studentFeeRepository.findBystudentFK(stEntity.getStudentPK());
+                    List<StudentFee> response = new ArrayList<StudentFee>();
+                    if (optionalStudentFeeRepository.isPresent()) {
+                        List<StudentFeeEntity> studentFeeEntities = optionalStudentFeeRepository.get();
+                        for (StudentFeeEntity i : studentFeeEntities) {
+                            if (i.getReceiptFK() != 0l) {
+                                Optional<FeeReceipt> feeReceiptentityoptional = studentFeeReceipt.findById(i.getReceiptFK());
+                                if (feeReceiptentityoptional.isPresent()) {
+                                    StudentFee entityData = StudentFee.build(stEntity.getUsn(), stEntity.getSem(), departmentRepository.findById(stEntity.getDeptfk()).get().getDepartmentName(),
+                                            null, feeReceiptentityoptional.get().getFileName(),
+                                            i.isFeePending(), i.getReceiptFK(), stEntity.getStudentName(), i.getTotalFeePaid(), i.getCreatedDate());
+                                    response.add(entityData);
+                                }
+                            }
+                        }
+                        return response;
+                    }
+
+                }
         return null;
     }
 
     @Override
-    public byte[] downloadFile(long id) {
+    public FeeReceiptDAO downloadFile(long id) {
 
-        return studentFeeReceipt.findById(id).get().getReceiptFile();
+        try{
 
+            Optional<FeeReceipt> optionalFeeReceipt = studentFeeReceipt.findById(id);
+            if(optionalFeeReceipt.isPresent())
+            {
+                FeeReceipt feeReceipt = optionalFeeReceipt.get();
+                return FeeReceiptDAO.build(feeReceipt.getReceiptFile(), feeReceipt.getFileName());
+            }
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
     }
 }

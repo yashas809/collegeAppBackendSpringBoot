@@ -44,26 +44,32 @@ public class IAdminImpl implements IAdmin
         try{
             if(request!=null)
             {
-                loginData.setPassword(request.getPassword());
-                loginData.setLoginName(request.getLoginName());
-                LoginEntity loginEntity = loginrepository.createLogin(loginData);
 
                 if(request.getRoleName()!=null)
                 {
                     roleentityData = roleRepository.findByroleName(request.getRoleName());
                 }
 
-                if(loginEntity!=null && roleentityData.getRolePK()!=0l)
+                if(roleentityData.getRolePK()!=0l)
                 {
-                    entityData = AdminEntity.build(0l,request.getUsername(),loginEntity.getLoginPK(),roleentityData.getRolePK());
-                    entityData = repository.save(entityData);
+                    loginData.setPassword(request.getPassword());
+                    loginData.setLoginName(request.getLoginName());
+                    loginentity  = loginrepository.createLogin(loginData);
+
+                    if(loginentity!=null)
+                    {
+                        entityData = AdminEntity.build(0l,request.getUsername(),loginentity.getLoginPK(),roleentityData.getRolePK());
+                        entityData = repository.save(entityData);
+                        return entityData;
+                    }
+
                 }
             }
-                return entityData;
+              return null;
         }catch (Exception e)
         {
             e.printStackTrace();
-            return entityData;
+            return null;
         }
 
 
