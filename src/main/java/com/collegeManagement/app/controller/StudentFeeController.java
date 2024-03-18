@@ -19,6 +19,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/student/fee")
+@CrossOrigin(origins = "*")
 public class StudentFeeController {
 
     @Autowired

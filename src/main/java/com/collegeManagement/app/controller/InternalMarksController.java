@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/internalMarks")
+@CrossOrigin(origins = "*")
 public class InternalMarksController {
     @Autowired
     IInternalMarksService internalMarksService;

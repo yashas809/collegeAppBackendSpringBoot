@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "*")
 public class AdminController
 {
 
@@ -51,7 +52,7 @@ public class AdminController
        {
            return ResponseEntity.ok().body(response);
        }
-       return ResponseEntity.badRequest().body(passwordException);
+       return ResponseEntity.status(422).body(passwordException);
     }
 
 }

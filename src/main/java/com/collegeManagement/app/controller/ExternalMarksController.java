@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/externalMarks")
+@CrossOrigin(origins = "*")
 public class ExternalMarksController {
     @Autowired
     IExternalMarksService externalMarksService;

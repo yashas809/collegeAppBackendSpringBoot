@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/timetable")
+@CrossOrigin(origins = "*")
 public class TimeTableController {
 
     @Autowired
