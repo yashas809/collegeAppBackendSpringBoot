@@ -1,0 +1,1822 @@
+{
+	"info": {
+		"_postman_id": "87e5f695-e198-47d2-bcb0-d1fb77b41577",
+		"name": "CollegeManagementApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14977941",
+		"_collection_link": "https://solar-moon-967258.postman.co/workspace/Project~1b4de67b-af04-482b-8286-9edb83189d42/collection/14977941-87e5f695-e198-47d2-bcb0-d1fb77b41577?action=share&source=collection_link&creator=14977941"
+	},
+	"item": [
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "CreateStudent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usn\": \"1RI15CS01157\",\r\n    \"sem\": 1,\r\n    \"departmentName\": \"CSE\",\r\n    \"status\": \"ACTIVE\",\r\n    \"studentName\": \"Karanam Yashas Chandra\",\r\n    \"dateOfBirth\": \"1998-08-28\",\r\n    \"gender\": \"MALE\",\r\n    \"emailID\": \"vrao11110@gmail.com\",\r\n    \"password\": \"Yashaswi123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStudent",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"emailID\":\"Yashaschandra809@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/update?usn=1RI15CS01157",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"update"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StudentLogin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/login?loginName=1RI15CS01157&password=Yashaswi123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"login"
+							],
+							"query": [
+								{
+									"key": "loginName",
+									"value": "1RI15CS01157"
+								},
+								{
+									"key": "password",
+									"value": "Yashaswi123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllStudents",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStudentBySem",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/getBySem?sem=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"getBySem"
+							],
+							"query": [
+								{
+									"key": "sem",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStudentByUSN",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/getByUSN?usn=1RI15CS01157",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"getByUSN"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "GetAllRoles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/role/get/allroles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"get",
+								"allroles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateRole",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rolename\": \"Lecturer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/role/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteRole",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/role/delete?roleName=AccountingStaff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "roleName",
+									"value": "AccountingStaff"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Departments",
+			"item": [
+				{
+					"name": "GetAllDepartments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/department/getall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"department",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateDepartment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"departmentName\": \"ME\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/department/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"department",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "GetAllAdmin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AdminCreation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Vaishnavi\",\r\n    \"roleName\":\"Admin\",\r\n    \"password\":\"VaishnaviVRao\",\r\n    \"loginName\":\"VaishnaviAdmin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AdminLogin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/login?userName=VaishnaviAdmin&password=VaishnaviVRao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"login"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "VaishnaviAdmin"
+								},
+								{
+									"key": "password",
+									"value": "VaishnaviVRao"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Staff",
+			"item": [
+				{
+					"name": "StaffCreation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Yashas Chandra\",\r\n    \"departmentName\":\"CSE\",\r\n    \"password\":\"Yashas123\",\r\n    \"loginName\":\"YashasChandraStaff\",\r\n    \"roleName\":\"Lecturer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/staff/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"staff",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateStaff",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"delflag\" : false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/staff/update?staffId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"staff",
+								"update"
+							],
+							"query": [
+								{
+									"key": "staffId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StaffLogin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/staff/login?userName=YashasChandraStaff&password=Yashas123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"staff",
+								"login"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "YashasChandraStaff"
+								},
+								{
+									"key": "password",
+									"value": "Yashas123"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FeeStructureModule",
+			"item": [
+				{
+					"name": "GetFeeStructure",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/feeStructure/getFeeStructureDepartmentWise?departmentName=CSE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feeStructure",
+								"getFeeStructureDepartmentWise"
+							],
+							"query": [
+								{
+									"key": "departmentName",
+									"value": "CSE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateFeeStructure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"departmentName\":\"CSE\",\r\n    \"sem\":2,\r\n    \"semfee\":72000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/feeStructure/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feeStructure",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateFeeStructure",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/feeStructure/updateFeeStructure?departmentName=CSE&sem=1&feeamount=70000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feeStructure",
+								"updateFeeStructure"
+							],
+							"query": [
+								{
+									"key": "departmentName",
+									"value": "CSE"
+								},
+								{
+									"key": "sem",
+									"value": "1"
+								},
+								{
+									"key": "feeamount",
+									"value": "70000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateFeeStructure Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/feeStructure/deleteFeeStructure?departmentName=CSE&sem=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feeStructure",
+								"deleteFeeStructure"
+							],
+							"query": [
+								{
+									"key": "departmentName",
+									"value": "CSE"
+								},
+								{
+									"key": "sem",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "StudentFee",
+			"item": [
+				{
+					"name": "EnterFee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/Projects/CollegeManagementSystem/CollegeManagementSystem.docx"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"usn\":\"1RI15CS01157\",\n    \"sem\":1,\n    \"deptName\":\"CSE\",\n    \"isFeePending\":false,\n    \"feePaid\":70000\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/fee/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"fee",
+								"add"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReceipt",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/fee/downloadfee/?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"fee",
+								"downloadfee",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByStudentUSN",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/student/fee/getbystudentusn?usn=1RI15CS01157",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"fee",
+								"getbystudentusn"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByStudentSem",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/student/fee/getallfeedata/sem?sem=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"fee",
+								"getallfeedata",
+								"sem"
+							],
+							"query": [
+								{
+									"key": "sem",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllReceipts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/student/fee/getallfeedata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"fee",
+								"getallfeedata"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subject",
+			"item": [
+				{
+					"name": "getSubjectBySubjectName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/Projects/CollegeManagementSystem/CollegeManagementSystem.docx"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"usn\":\"1RI15CS01157\",\n    \"sem\":1,\n    \"deptName\":\"CSE\",\n    \"isFeePending\":false,\n    \"feePaid\":70000\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/subject/getSubjectByName?SubjectName=DSE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subject",
+								"getSubjectByName"
+							],
+							"query": [
+								{
+									"key": "SubjectName",
+									"value": "DSE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubjectBySem",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/Projects/CollegeManagementSystem/CollegeManagementSystem.docx"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"usn\":\"1RI15CS01157\",\n    \"sem\":1,\n    \"deptName\":\"CSE\",\n    \"isFeePending\":false,\n    \"feePaid\":70000\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/subject/getbysem?sem=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subject",
+								"getbysem"
+							],
+							"query": [
+								{
+									"key": "sem",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubjectBySubjectCode",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/Projects/CollegeManagementSystem/CollegeManagementSystem.docx"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"usn\":\"1RI15CS01157\",\n    \"sem\":1,\n    \"deptName\":\"CSE\",\n    \"isFeePending\":false,\n    \"feePaid\":70000\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/subject/getSubjectBySubjectCode?SubjectCode=1CSE15SEM1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subject",
+								"getSubjectBySubjectCode"
+							],
+							"query": [
+								{
+									"key": "SubjectCode",
+									"value": "1CSE15SEM1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateSubject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subjectName\":\"DSE\",\r\n    \"subjectCode\":\"1CSE15SEM1\",\r\n    \"deptName\" : \"CSE\",\r\n    \"sem\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/subject/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subject",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateSubject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subjectName\":\"M1\",\r\n    \"sem\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/subject/update?subjectCode=1CSE15SEM1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subject",
+								"update"
+							],
+							"query": [
+								{
+									"key": "subjectCode",
+									"value": "1CSE15SEM1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TimeTable",
+			"item": [
+				{
+					"name": "CreateTimeTable",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromTime\":\"08:00:00\",\r\n    \"toTime\":\"09:00:00\",\r\n    \"day\":\"Monday\",\r\n    \"staffName\":\"Yashas Chandra\",\r\n    \"subjectName\":\"M1\",\r\n    \"deptName\":\"CSE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/timetable/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timetable",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTimeTable",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromTime\":\"09:00:00\",\r\n    \"toTime\":\"10:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/timetable/update?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timetable",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTimeTableBySemAndDept",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromTime\":\"09:00:00\",\r\n    \"toTime\":\"10:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/timetable/getBySemAndDept?sem=2&departmentName=CSE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timetable",
+								"getBySemAndDept"
+							],
+							"query": [
+								{
+									"key": "sem",
+									"value": "2"
+								},
+								{
+									"key": "departmentName",
+									"value": "CSE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTimeTable",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/timetable/delete?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timetable",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "InternalMarks",
+			"item": [
+				{
+					"name": "AddInternalMarks",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usn\":\"1RI15CS01157\",\r\n    \"subjectName\":\"M1\",\r\n    \"maxMarks\":30,\r\n    \"marksScored\":25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/internalMarks/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"internalMarks",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateInternalMarks",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n    \"marksScored\":26\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/internalMarks/update?usn=1RI15CS01157&subjectName=M1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"internalMarks",
+								"update"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								},
+								{
+									"key": "subjectName",
+									"value": "M1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetInternalMarksUSN",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usn\":\"1RI15CS01157\",\r\n    \"subjectName\":\"M1\",\r\n    \"maxMarks\":30,\r\n    \"marksScored\":25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/internalMarks/getInternalMarksforStudent?usn=1RI15CS01157",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"internalMarks",
+								"getInternalMarksforStudent"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUSNInternalMarks",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usn\":\"1RI15CS01157\",\r\n    \"subjectName\":\"M1\",\r\n    \"maxMarks\":30,\r\n    \"marksScored\":25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/internalMarks/delete?usn=1RI15CS01157&subjectName=M1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"internalMarks",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								},
+								{
+									"key": "subjectName",
+									"value": "M1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ExternalMarks",
+			"item": [
+				{
+					"name": "AddStudentExternalMarks",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"usn\": \"1RI15CS01157\",\r\n        \"subjectName\": \"M1\",\r\n        \"externalMarksMaximum\": 70,\r\n        \"externalMarksScored\": 67,\r\n        \"sem\": 2,\r\n        \"departmentName\": \"CSE\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/externalMarks/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"externalMarks",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateExternalMarks",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n\r\n        \"externalMarksScored\": 68\r\n\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/externalMarks/update?usn=1RI15CS01157&Sem=2&subjectName=M1&departmentName=CSE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"externalMarks",
+								"update"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								},
+								{
+									"key": "Sem",
+									"value": "2"
+								},
+								{
+									"key": "subjectName",
+									"value": "M1"
+								},
+								{
+									"key": "departmentName",
+									"value": "CSE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBySem",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/externalMarks/getBySem?sem=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"externalMarks",
+								"getBySem"
+							],
+							"query": [
+								{
+									"key": "sem",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByDept",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/externalMarks/getByDept?departmentName=CSE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"externalMarks",
+								"getByDept"
+							],
+							"query": [
+								{
+									"key": "departmentName",
+									"value": "CSE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByUsnAndSem",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/externalMarks/getByUsnAndSem?usn=1RI15CS01157&Sem=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"externalMarks",
+								"getByUsnAndSem"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								},
+								{
+									"key": "Sem",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attendance",
+			"item": [
+				{
+					"name": "addAttendance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usn\":\"1RI15CS01157\",\r\n    \"subjectName\":\"M2\",\r\n    \"sem\":2,\r\n    \"totalNumberOfClasses\":30,\r\n    \"NoOfClassesAttended\":25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/attendance/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"attendance",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAttendannce",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"totalNumberOfClasses\":30,\r\n    \"NoOfClassesAttended\":20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/attendance/update?usn=1RI15CS01157&sem=1&subject=M1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"attendance",
+								"update"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								},
+								{
+									"key": "sem",
+									"value": "1"
+								},
+								{
+									"key": "subject",
+									"value": "M1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAttendanceByUsnAndSem",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usn\":\"1RI15CS01157\",\r\n    \"subjectName\":\"M2\",\r\n    \"sem\":2,\r\n    \"totalNumberOfClasses\":30,\r\n    \"NoOfClassesAttended\":25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/attendance/getattendace?sem=3&usn=1RI15CS01157",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"attendance",
+								"getattendace"
+							],
+							"query": [
+								{
+									"key": "sem",
+									"value": "3"
+								},
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Assignment",
+			"item": [
+				{
+					"name": "GetAssignmentDataBySub",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/student/assignment/getbySubject?subjectName=M1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"assignment",
+								"getbySubject"
+							],
+							"query": [
+								{
+									"key": "subjectName",
+									"value": "M1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAssignmentDataByUSN",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/student/assignment/getbyusn?usn=1RI15CS01157",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"assignment",
+								"getbyusn"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStatus",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/student/assignment/update?usn=1RI15CS01157&subjectName=M1&isSubmitted=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"assignment",
+								"update"
+							],
+							"query": [
+								{
+									"key": "usn",
+									"value": "1RI15CS01157"
+								},
+								{
+									"key": "subjectName",
+									"value": "M1"
+								},
+								{
+									"key": "isSubmitted",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddAssignment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subjectName\":\"M2\",\r\n    \"usn\":\"1RI15CS01157\",\r\n    \"isAssignmentSubmitted\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/assignment/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"assignment",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
