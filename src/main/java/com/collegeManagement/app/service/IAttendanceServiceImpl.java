@@ -5,7 +5,6 @@ import com.collegeManagement.app.entity.AttendanceEntity;
 import com.collegeManagement.app.entity.StudentEntity;
 import com.collegeManagement.app.entity.SubjectEntity;
 import com.collegeManagement.app.repository.AttendanceRepository;
-import com.collegeManagement.app.repository.DepartmentRepository;
 import com.collegeManagement.app.repository.StudentRepository;
 import com.collegeManagement.app.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +30,18 @@ public class IAttendanceServiceImpl implements IAttendanceService {
     @Override
     public AttendanceDAO create(AttendanceDAO request) {
         try {
-            if (request != null) {
-                if (request.getUsn() != null && request.getSubjectName() != null) {
+            if (request != null && (request.getUsn() != null && request.getSubjectName() != null)) {
                     Optional<StudentEntity> optionalStudentEntity = studentRepository.findByusn(request.getUsn());
                     Optional<SubjectEntity> optionalSubjectEntity = subjectRepository.findBysubjectName(request.getSubjectName());
                     if (optionalStudentEntity.isPresent() && optionalSubjectEntity.isPresent()) {
                         request.setAttendancePercentage(this.averageAttendanceCalculator(request.getTotalNumberOfClasses(), request.getNoOfClassesAttended()));
-                        AttendanceEntity entityData = AttendanceEntity.build(0l, request.getUsn(), optionalSubjectEntity.get().getSubjectPK(), request.getSem(),
+                        AttendanceEntity entityData = AttendanceEntity.build(0L, request.getUsn(), optionalSubjectEntity.get().getSubjectPK(), request.getSem(),
                                 request.getTotalNumberOfClasses(), request.getNoOfClassesAttended(), request.getAttendancePercentage());
                         entityData = attendanceRepository.save(entityData);
                         request.setId(entityData.getAttendancePK());
                         return request;
                     }
-                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,6 +70,22 @@ public class IAttendanceServiceImpl implements IAttendanceService {
 
     @Override
     public AttendanceDAO update(String usn, String subjectName, int sem, AttendanceDAO request) {
+        if(request!=null)
+        {
+           Optional<AttendanceEntity> attendanceEntity= attendanceRepository.findByUsnAndSemAndSubjectFK(usn,sem,subjectRepository.findBysubjectName(subjectName).get().getSubjectPK());
+           if(attendanceEntity.isPresent())
+           {
+                AttendanceEntity entityData = attendanceEntity.get();
+                if(request.getNoOfClassesAttended()!=0 && request.getTotalNumberOfClasses()!=0)
+                {
+                    entityData.setAttendedClasses(request.getNoOfClassesAttended());
+                    entityData.setTotalNumberOfClasses(request.getTotalNumberOfClasses());
+                    entityData.setAttendancePercentage(this.averageAttendanceCalculator(request.getTotalNumberOfClasses(), request.getNoOfClassesAttended()));
+                }
+                entityData = attendanceRepository.saveAndFlush(entityData);
+                return AttendanceDAO.build(entityData.getAttendancePK(),usn,subjectName,sem,entityData.getTotalNumberOfClasses(), entityData.getAttendedClasses(), entityData.getAttendancePercentage());
+           }
+        }
         return null;
     }
 

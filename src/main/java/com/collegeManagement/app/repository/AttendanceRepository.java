@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface AttendanceRepository extends JpaRepository<AttendanceEntity, Long>
 {
     public Optional<List<AttendanceEntity>> findByUsnAndSem(String usn, int sem);
+
+    public Optional<AttendanceEntity> findByUsnAndSemAndSubjectFK(String usn, int sem, long subjectFk);
 }
