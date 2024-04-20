@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +60,6 @@ public class IStaffServiceImpl implements IStaffService
     public StaffEntity createStaff(Staff request)
     {
         try{
-
             if(request.getRoleName()!=null && request.getDepartmentName()!=null)
             {
                 roleentitydata = rolerepository.findByroleName(request.getRoleName());
@@ -87,7 +87,16 @@ public class IStaffServiceImpl implements IStaffService
 
     @Override
     public List<Staff> getAll() {
-        return null;
+      List<StaffEntity> optionalStaffEntities = staffreposiotry.findAll();
+      List<Staff> response = new ArrayList<>();
+      for(StaffEntity entityData : optionalStaffEntities)
+      {
+            response.add(Staff.build(entityData.getName(),entityData.getCreatedDate(),entityData.getDelflag(),
+                    deptRepository.findById(entityData.getDeptfk()).get().getDepartmentName(),
+                    loginService.findByloginPK(entityData.getLoginfk()).getLoginName(),"",
+                    rolerepository.findById(entityData.getRolefk()).get().getRoleName(),entityData.getStaffId()));
+      }
+      return response;
     }
 
     @Override
@@ -98,11 +107,10 @@ public class IStaffServiceImpl implements IStaffService
             entityData  = staffreposiotry.findByName(staffName);
             if(entityData!=null)
             {
-
                 return Staff.build(entityData.getName(),entityData.getCreatedDate(),entityData.getDelflag(),
                         deptRepository.findById(entityData.getDeptfk()).get().getDepartmentName(),
-                        loginService.findByloginPK(entityData.getRolefk()).getLoginName(),"",
-                        rolerepository.findById(entityData.getRolefk()).get().getRoleName());
+                        loginService.findByloginPK(entityData.getLoginfk()).getLoginName(),"",
+                        rolerepository.findById(entityData.getRolefk()).get().getRoleName(), entityData.getStaffId());
             }
         }
 
@@ -151,6 +159,18 @@ public class IStaffServiceImpl implements IStaffService
         }
     }
 
+    @Override
+    public boolean delete(long StaffId) {
+        try{
+            staffreposiotry.deleteById(StaffId);
+            return true;
+        }catch (Exception e)
+        {
+            return false;
+        }
+
+    }
+
 
     @Override
     public Staff StaffLogin(String userName, String password)
@@ -180,7 +200,7 @@ public class IStaffServiceImpl implements IStaffService
                         if(deptEntity.isPresent())
                         {
                             staff = Staff.build(entityData.getName(), entityData.getCreatedDate(), entityData.getDelflag(), deptEntity.get().getDepartmentName()
-                                    ,userName,null,roleentitydata.getRoleName());
+                                    ,userName,null,roleentitydata.getRoleName(),entityData.getStaffId());
                             return staff;
                         }
 

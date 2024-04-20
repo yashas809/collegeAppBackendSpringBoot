@@ -20,5 +20,5 @@ public class Staff {
     private String loginName;
     private String password;
     private String roleName;
-
+    private long staffId;
 }

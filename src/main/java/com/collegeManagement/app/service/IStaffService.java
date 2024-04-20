@@ -15,6 +15,7 @@ public interface IStaffService {
 
     public Staff updateStaff(long StaffId, Staff request);
 
+    public boolean delete(long StaffId);
 
     public Staff StaffLogin(String userName, String password);
 
