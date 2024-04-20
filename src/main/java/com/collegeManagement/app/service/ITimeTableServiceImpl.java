@@ -11,6 +11,7 @@ import com.collegeManagement.app.repository.SubjectRepository;
 import com.collegeManagement.app.repository.TimeTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class ITimeTableServiceImpl implements ITimeTableService {
     @Autowired
     SubjectRepository subjectRepository;
 
+    @Transactional
     @Override
     public TimeTableDAO create(TimeTableDAO request) {
         try {
@@ -39,7 +41,9 @@ public class ITimeTableServiceImpl implements ITimeTableService {
                 Optional<DepartmentEntity> optonaldepartmentEntity = departmentRepository.findBydepartmentName(request.getDeptName());
                 Optional<SubjectEntity> optionalSubjectEntity = subjectRepository.findBysubjectName(request.getSubjectName());
                 StaffEntity staffEntity = staffRepository.findByName(request.getStaffName());
-                if (optonaldepartmentEntity.isPresent() && staffEntity != null && optionalSubjectEntity.isPresent()) {
+                Optional<TimeTableEntity> optionalTimeTableEntity = timeTableRepository.uspIdentifyDuplicateTimeTable(request.getFromTime(), request.getToTime(), request.getDay()
+                                                                                                                      , optonaldepartmentEntity.get().getId(),optionalSubjectEntity.get().getSem());
+                if (optionalTimeTableEntity.isEmpty() && optonaldepartmentEntity.isPresent() && staffEntity != null && optionalSubjectEntity.isPresent()) {
                     TimeTableEntity timeTableEntity = TimeTableEntity.build(0l, request.getFromTime(), request.getToTime(), request.getDay(), staffEntity.getStaffId(), optionalSubjectEntity.get().getSubjectPK(), optonaldepartmentEntity.get().getId(),
                             optionalSubjectEntity.get().getSem());
                     timeTableEntity = timeTableRepository.save(timeTableEntity);
@@ -53,6 +57,7 @@ public class ITimeTableServiceImpl implements ITimeTableService {
         return null;
     }
 
+    @Transactional
     @Override
     public TimeTableDAO update(TimeTableDAO request, long TimeTablePK) {
         try {
@@ -60,6 +65,13 @@ public class ITimeTableServiceImpl implements ITimeTableService {
                 Optional<TimeTableEntity> optionalTimeTableEntity = timeTableRepository.findById(TimeTablePK);
                 if (optionalTimeTableEntity.isPresent()) {
                     TimeTableEntity timeTableEntity = optionalTimeTableEntity.get();
+                    Optional<TimeTableEntity> duplicateCheck = timeTableRepository.uspIdentifyDuplicateTimeTableSubject(request.getFromTime(), request.getToTime(), request.getDay()
+                            , timeTableEntity.getDeptFK(),timeTableEntity.getSem(), timeTableEntity.getSubjectFK());
+
+                    if(duplicateCheck.isPresent())
+                    {
+                        return null;
+                    }
                     if (request.getFromTime() != null) {
                         timeTableEntity.setFromTime(request.getFromTime());
                     }

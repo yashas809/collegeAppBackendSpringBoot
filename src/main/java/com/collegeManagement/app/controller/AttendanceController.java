@@ -49,6 +49,31 @@ public class AttendanceController
         }
     }
 
+    @GetMapping("/get/attendanceByDept")
+    public ResponseEntity getAttendancebyDeptAndSem(@RequestParam(name = "departmentName") String departmentName, @RequestParam(name = "sem") int sem)
+    {
+        List<List<AttendanceDAO>> response = service.getAttendanceByDeptAndSem(departmentName, sem);
+        if(response!=null)
+        {
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.status(421).body(noDataFoundException);
+        }
+    }
+
+
+    @GetMapping("/get/attendanceSubjectwise")
+    public ResponseEntity getAttendancebyUsnAndSubject(@RequestParam(name = "usn") String usn,@RequestParam(name = "sem") int sem, @RequestParam(name = "subject") String subjectName)
+    {
+        AttendanceDAO response = service.getAttendanceSubjectWise(usn, subjectName, sem);
+        if(response!=null)
+        {
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.status(421).body(noDataFoundException);
+        }
+    }
+
     @PutMapping("/update")
     public ResponseEntity update(@RequestParam(name = "usn") String usn,@RequestParam(name = "sem") int sem, @RequestParam(name = "subject") String subjectName,
                                  @RequestBody AttendanceDAO requestBody)

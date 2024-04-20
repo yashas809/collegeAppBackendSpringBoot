@@ -132,9 +132,15 @@ public class IStudentImpl implements IStudent
     }
 
     @Override
-    public List<Student> getAllStudentsBasedOnSem(int sem) {
-
-        Optional<List<StudentEntity>> entityData = studentRepository.findBySem(sem);
+    public List<Student> getAllStudentsBasedOnSem(int sem, String deptName) {
+        long deptFk = 0L;
+        if(deptName!=null)
+        {
+            deptFk = this.departmentRepo.findBydepartmentName(deptName).get().getId();
+        }else{
+            return null;
+        }
+        Optional<List<StudentEntity>> entityData = studentRepository.findBySemAndDeptfk(sem,deptFk);
         if(entityData.isPresent())
         {
 

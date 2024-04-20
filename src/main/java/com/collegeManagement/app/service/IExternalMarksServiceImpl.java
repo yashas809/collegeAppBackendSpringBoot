@@ -35,6 +35,15 @@ public class IExternalMarksServiceImpl implements IExternalMarksService {
     public List<ExternalMarksDAO> add(List<ExternalMarksDAO> request) {
         try {
             if (!request.isEmpty()) {
+                Optional<List<ExternalMarksEntity>> DuplicateCheck = externalMarksRepository.findByUsnAndSem(request.get(0).getUsn(),request.get(0).getSem());
+                if(DuplicateCheck.isPresent())
+                {
+                    List<ExternalMarksEntity> listofmarksDupCheck = DuplicateCheck.get();
+                    if(!listofmarksDupCheck.isEmpty())
+                    {
+                        return null;
+                    }
+                }
                 List<ExternalMarksEntity> listofExternalMarksEntity = new ArrayList<ExternalMarksEntity>();
                 for (ExternalMarksDAO externalMarksDAO : request) {
                     if (externalMarksDAO.getDepartmentName() != null && externalMarksDAO.getSubjectName() != null && externalMarksDAO.getUsn() != null) {
@@ -75,6 +84,7 @@ public class IExternalMarksServiceImpl implements IExternalMarksService {
                         ExternalMarksEntity externalMarksEntity = optionalExternalMarksEntity.get();
                         if (request.getExternalMarksScored() != 0d) {
                             externalMarksEntity.setExternalMarksScored(request.getExternalMarksScored());
+                            this.externalMarksRepository.saveAndFlush(externalMarksEntity);
                             return ExternalMarksDAO.build(usn, subjectName, externalMarksEntity.getExternalMarksMaximum(), externalMarksEntity.getExternalMarksScored(), externalMarksEntity.getSem(), departmentName
                                     , internalMarksRepository.findById(externalMarksEntity.getInternalMarksFK()).get().getMarksScored(), internalMarksRepository.findById(externalMarksEntity.getInternalMarksFK()).get().getMaximumMarks());
                         }

@@ -14,4 +14,6 @@ public interface SubjectRepository extends JpaRepository<SubjectEntity, Long> {
 
     public Optional<List<SubjectEntity>> findBysem(int sem);
 
+    public Optional<List<SubjectEntity>> findBysemAndDeptFK(int sem, long deptfk);
+
 }

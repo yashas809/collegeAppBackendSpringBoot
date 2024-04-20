@@ -14,4 +14,7 @@ public interface IAssignmentService
 
     public AssignmentDAO update(boolean isSubmitted, String usn, String subjectName);
 
+    public List<AssignmentDAO> getassignmentBasedonSemAndDept(String departmentName, long sem);
+
+    public List<AssignmentDAO> getassignmentofStudent(String usn, long sem);
 }

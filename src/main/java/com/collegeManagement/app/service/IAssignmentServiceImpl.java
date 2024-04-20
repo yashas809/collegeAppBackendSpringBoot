@@ -9,6 +9,7 @@ import com.collegeManagement.app.repository.StudentRepository;
 import com.collegeManagement.app.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,36 @@ public class IAssignmentServiceImpl implements IAssignmentService {
             List<AssignmentDAO> response = new ArrayList<AssignmentDAO>();
             for (AssignmentEntity data : entityList) {
                 response.add(AssignmentDAO.build(subjectName, data.getUsn(), data.isSubmitted()));
+            }
+            return response;
+        }
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public List<AssignmentDAO> getassignmentBasedonSemAndDept(String departmentName, long sem) {
+        Optional<List<AssignmentEntity>> listOptionalAssignmentEntity = assignmentRepository.uspgetAssignment(departmentName,sem);
+        if (listOptionalAssignmentEntity.isPresent()) {
+            List<AssignmentEntity> entityList = listOptionalAssignmentEntity.get();
+            List<AssignmentDAO> response = new ArrayList<AssignmentDAO>();
+            for (AssignmentEntity data : entityList) {
+                response.add(AssignmentDAO.build(subjectRepository.findById(data.getSubjectFK()).get().getSubjectName(), data.getUsn(), data.isSubmitted()));
+            }
+            return response;
+        }
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public List<AssignmentDAO> getassignmentofStudent(String usn, long sem) {
+        Optional<List<AssignmentEntity>> listOptionalAssignmentEntity = assignmentRepository.uspgetAssignmentByUSNandSem(usn, sem);
+        if (listOptionalAssignmentEntity.isPresent()) {
+            List<AssignmentEntity> entityList = listOptionalAssignmentEntity.get();
+            List<AssignmentDAO> response = new ArrayList<AssignmentDAO>();
+            for (AssignmentEntity data : entityList) {
+                response.add(AssignmentDAO.build(subjectRepository.findById(data.getSubjectFK()).get().getSubjectName(), data.getUsn(), data.isSubmitted()));
             }
             return response;
         }

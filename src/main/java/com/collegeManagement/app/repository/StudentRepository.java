@@ -10,5 +10,6 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
 
     Optional<List<StudentEntity>> findBySem(int Sem);
 
+    Optional<List<StudentEntity>> findBySemAndDeptfk(int Sem, long deptfk);
 
 }

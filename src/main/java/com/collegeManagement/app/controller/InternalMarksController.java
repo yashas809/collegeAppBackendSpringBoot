@@ -24,9 +24,28 @@ public class InternalMarksController {
     NoDataFoundException noDataFoundException;
 
     @GetMapping("/getInternalMarksforStudent")
-    public ResponseEntity getInternalMarksforStudent(@RequestParam(value = "usn") String usn) {
-        List<InternalMarksDAO> response = internalMarksService.getInternalMarksforStudent(usn);
+    public ResponseEntity getInternalMarksforStudent(@RequestParam(value = "usn") String usn, @RequestParam(value = "sem") int sem) {
+        List<InternalMarksDAO> response = internalMarksService.getInternalMarksforStudent(usn,sem);
         if (!response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.status(421).body(noDataFoundException);
+    }
+
+    @GetMapping("/getInternalMarks")
+    public ResponseEntity getInternalMarksforStudent(@RequestParam(value = "usn") String usn, @RequestParam(value = "subject") String subjectName) {
+        InternalMarksDAO response = internalMarksService.getInternalMarksforStudent(usn,subjectName);
+        if (response!=null) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.status(421).body(noDataFoundException);
+    }
+
+
+    @GetMapping("/getInternalMarksByDept")
+    public ResponseEntity getInternalMarksforStudent(@RequestParam(value = "sem") int sem, @RequestParam(value = "deptName") String deptName) {
+        List<List<InternalMarksDAO>> response = internalMarksService.getInternalMarksforStudent(sem,deptName);
+        if (response!=null) {
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.status(421).body(noDataFoundException);

@@ -23,9 +23,9 @@ public class SubjectController {
     @Autowired
     InputException inputException;
 
-    @GetMapping("/getbysem")
-    public ResponseEntity getBySem(@RequestParam(value = "sem") int sem) {
-        List<SubjectDAO> response = subjectService.getSubjectsBySem(sem);
+    @GetMapping("/getbysemandDept")
+    public ResponseEntity getBySem(@RequestParam(value = "sem") int sem, @RequestParam(value = "deptName") String deptName) {
+        List<SubjectDAO> response = subjectService.getSubjectsBySem(sem, deptName);
         if (!response.isEmpty()) {
             return ResponseEntity.ok(response);
         }

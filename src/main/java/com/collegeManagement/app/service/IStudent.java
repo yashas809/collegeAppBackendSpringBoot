@@ -13,7 +13,7 @@ public interface IStudent
 
     public Student GetStudentSemSummary(String usn);
 
-    public List<Student> getAllStudentsBasedOnSem(int sem);
+    public List<Student> getAllStudentsBasedOnSem(int sem,String deptName);
 
     public List<Student> getAllStudents();
 

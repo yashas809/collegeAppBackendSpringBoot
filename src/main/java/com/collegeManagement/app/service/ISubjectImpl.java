@@ -82,8 +82,13 @@ public class ISubjectImpl implements ISubject {
     }
 
     @Override
-    public List<SubjectDAO> getSubjectsBySem(int Sem) {
-        Optional<List<SubjectEntity>> optionalSubjectEntity = subjectRepository.findBysem(Sem);
+    public List<SubjectDAO> getSubjectsBySem(int Sem,String deptName) {
+        long deptId = 0L;
+        if(deptName!=null)
+        {
+            deptId=this.departmentRepository.findBydepartmentName(deptName).get().getId();
+        }
+        Optional<List<SubjectEntity>> optionalSubjectEntity = subjectRepository.findBysemAndDeptFK(Sem,deptId);
         if (optionalSubjectEntity.isPresent()) {
             List<SubjectDAO> responseData = new ArrayList<SubjectDAO>();
             List<SubjectEntity> listofSubjectEntity = optionalSubjectEntity.get();

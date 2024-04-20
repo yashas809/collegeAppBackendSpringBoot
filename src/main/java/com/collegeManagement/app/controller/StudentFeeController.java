@@ -8,6 +8,8 @@ import com.collegeManagement.app.exception.NoDataFoundException;
 import com.collegeManagement.app.exception.UnsupportedFormat;
 import com.collegeManagement.app.service.IStudentFeeService;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +37,17 @@ public class StudentFeeController {
     NoDataFoundException noDataFoundException;
 
     @PostMapping("/add")
-    public ResponseEntity addFee(@RequestPart("data") StudentFee request, @RequestPart("file") MultipartFile file) {
+    public ResponseEntity addFee(@RequestParam("data") String requestData, @RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {
             if (Objects.equals(file.getContentType(), "application/pdf")) {
                 try {
+                    JSONObject convertedJsonData = new JSONObject(requestData);
+                    StudentFee request = new StudentFee();
+                    request.setFeePaid(convertedJsonData.getDouble("feePaid"));
+                    request.setUsn(convertedJsonData.getString("usn"));
+                    request.setDeptName(convertedJsonData.getString("deptName"));
+                    request.setFeePending(convertedJsonData.getBoolean("isFeePending"));
+                    request.setSem(convertedJsonData.getInt("sem"));
                     request.setFileData(file.getInputStream().readAllBytes());
                     request.setFileName(file.getOriginalFilename());
                     StudentFee response = feeService.createEntry(request);
@@ -67,20 +76,9 @@ public class StudentFeeController {
         return ResponseEntity.status(422).body(noDataFoundException);
     }
 
-    @GetMapping("/getallfeedata/sem")
-    public ResponseEntity getallfeedataSem(@RequestParam("sem") String usn) {
-        List<StudentFee> response = feeService.getAllFeeData();
-        if (response != null) {
-            if (!response.isEmpty()) {
-                return ResponseEntity.ok(response);
-            }
-        }
-        return ResponseEntity.status(422).body(noDataFoundException);
-    }
-
-    @GetMapping("/getallfeedata")
-    public ResponseEntity getallfeedata() {
-        List<StudentFee> response = feeService.getAllFeeData();
+    @GetMapping("/getallfeedata/sem/dept")
+    public ResponseEntity getallfeedataSem(@RequestParam("sem") int sem, @RequestParam("deptName") String deptName) {
+        List<StudentFee> response = feeService.getAllFeeData(sem, deptName);
         if (response != null) {
             if (!response.isEmpty()) {
                 return ResponseEntity.ok(response);

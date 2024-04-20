@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/student/assignment")
+@CrossOrigin(origins = "*")
 public class AssignmentController {
 
     @Autowired
@@ -48,10 +49,22 @@ public class AssignmentController {
         }
     }
 
-    @GetMapping("/getbyusn")
-    public ResponseEntity getByusn(@RequestParam(name ="usn") String usn)
+    @GetMapping("/getBySemAndDept")
+    public ResponseEntity getBySubject(@RequestParam(name ="departmentName") String departmentName, @RequestParam(name = "sem") long sem)
     {
-        List<AssignmentDAO> response = service.getassignmentofStudent(usn);
+        List<AssignmentDAO> response = service.getassignmentBasedonSemAndDept(departmentName, sem);
+        if(!response.isEmpty())
+        {
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.status(421).body(noDataFoundException);
+        }
+    }
+
+    @GetMapping("/getbyusn")
+    public ResponseEntity getByusn(@RequestParam(name ="usn") String usn, @RequestParam(name="sem") long sem)
+    {
+        List<AssignmentDAO> response = service.getassignmentofStudent(usn,sem);
         if(!response.isEmpty())
         {
             return ResponseEntity.ok(response);

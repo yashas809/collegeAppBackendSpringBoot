@@ -10,6 +10,10 @@ public interface IAttendanceService
 
     public List<AttendanceDAO> getAttendanceByUSNAndSem(String usn, int sem);
 
+    public List<List<AttendanceDAO>> getAttendanceByDeptAndSem(String departmentName, int sem);
+
+    public AttendanceDAO getAttendanceSubjectWise(String usn, String subjectName ,int sem);
+
     public AttendanceDAO update(String usn, String subjectName ,int sem, AttendanceDAO request);
 
     public boolean delete(String usn, int sem, String subjectName);

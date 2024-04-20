@@ -41,10 +41,10 @@ public class StudentController
         return ResponseEntity.status(422).body(inputException);
     }
 
-    @GetMapping("/getBySem")
-    public ResponseEntity<?> getBySem(@RequestParam(value = "sem") int sem)
+    @GetMapping("/getBySemandDept")
+    public ResponseEntity getBySem(@RequestParam(value = "sem") int sem, @RequestParam(value = "deptName") String deptName)
     {
-        List<Student> response = studentService.getAllStudentsBasedOnSem(sem);
+        List<Student> response = studentService.getAllStudentsBasedOnSem(sem,deptName);
         if(!response.isEmpty())
         {
             return ResponseEntity.ok(response);

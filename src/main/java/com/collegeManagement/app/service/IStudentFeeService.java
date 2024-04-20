@@ -12,7 +12,7 @@ public interface IStudentFeeService {
     public List<StudentFee> getStudentFeeDetails(String usn);
 
     public List<StudentFee> getStudentFeeDetailsbySem(int sem);
-    public List<StudentFee> getAllFeeData();
+    public List<StudentFee> getAllFeeData(int sem, String deptName);
 
     public FeeReceiptDAO downloadFile(long id);
 }

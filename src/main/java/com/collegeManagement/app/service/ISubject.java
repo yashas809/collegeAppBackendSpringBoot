@@ -10,7 +10,7 @@ public interface ISubject
 
     public SubjectDAO updateSubject(String subjectCode, SubjectDAO requestData);
 
-    public List<SubjectDAO> getSubjectsBySem(int Sem);
+    public List<SubjectDAO> getSubjectsBySem(int Sem, String deptName);
 
     public SubjectDAO getSubjectByName(String subjectName);
 

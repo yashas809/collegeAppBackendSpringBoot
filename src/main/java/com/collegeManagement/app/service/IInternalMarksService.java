@@ -10,6 +10,12 @@ public interface IInternalMarksService
 
     public List<InternalMarksDAO> getInternalMarksforStudent(String usn);
 
+    public List<List<InternalMarksDAO>> getInternalMarksforStudent(int sem, String deptName);
+
+    public List<InternalMarksDAO> getInternalMarksforStudent(String usn, int sem);
+
+    public InternalMarksDAO getInternalMarksforStudent(String usn, String subjectName);
+
     public InternalMarksDAO update(InternalMarksDAO request, String usn, String subjectName);
 
     public boolean delete(String usn, String subjectName);

@@ -11,7 +11,7 @@ public class AttendanceDAO
     private String usn;
     private String subjectName;
     private int sem;
-    private long totalNumberOfClasses;
-    private long NoOfClassesAttended;
     private double AttendancePercentage;
+    private long NoOfClassesAttended;
+    private long totalNumberOfClasses;
 }
