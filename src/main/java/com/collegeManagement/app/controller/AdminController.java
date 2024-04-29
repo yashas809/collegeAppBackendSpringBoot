@@ -1,10 +1,12 @@
 package com.collegeManagement.app.controller;
 
 import com.collegeManagement.app.dao.Admin;
+import com.collegeManagement.app.dao.AnnouncementsDAO;
 import com.collegeManagement.app.entity.AdminEntity;
 import com.collegeManagement.app.exception.InputException;
 import com.collegeManagement.app.exception.InvalidPasswordException;
 import com.collegeManagement.app.service.IAdmin;
+import com.collegeManagement.app.service.IAnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,9 @@ public class AdminController
 
     @Autowired
     InvalidPasswordException passwordException;
+
+    @Autowired
+    IAnnouncementService announcementService;
 
     @Autowired
     IAdmin admin;
@@ -53,6 +58,36 @@ public class AdminController
            return ResponseEntity.ok().body(response);
        }
        return ResponseEntity.status(422).body(passwordException);
+    }
+
+    @PostMapping("/announcement/create")
+    public ResponseEntity createAnnouncement(@RequestBody AnnouncementsDAO req)
+    {
+       AnnouncementsDAO response = announcementService.create(req);
+       if(response!=null)
+       {
+           return ResponseEntity.ok().build();
+       }else {
+           return ResponseEntity.status(422).build();
+       }
+    }
+
+    @DeleteMapping("/announcement/delete")
+    public ResponseEntity deleteAnnouncement(@RequestParam(name = "id") long id)
+    {
+        announcementService.delete(id);
+         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/announcement/get")
+    public ResponseEntity getAnnouncements()
+    {
+        List<AnnouncementsDAO> response = announcementService.getAll();
+        if(!response.isEmpty())
+        {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.status(422).build();
     }
 
 }

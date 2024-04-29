@@ -32,14 +32,12 @@ public class IFeeStructureImpl implements IFeeStructure{
                 if(request.getDepartmentName()!=null)
                 {
                     Optional<DepartmentEntity> deptEntity = deptRepo.findBydepartmentName(request.getDepartmentName());
-
-                    if(deptEntity.isPresent())
+                    Optional<FeeStructureEntity> optionalEntt = feeRepo.findBydeptFKAndSem(deptEntity.get().getId(), request.getSem());
+                    if(deptEntity.isPresent() && optionalEntt.isEmpty())
                     {
                         FeeStructureEntity feeStructureEntityData = FeeStructureEntity.build(0l,deptEntity.get().getId(),
                                 request.getSem(), request.getSemfee());
-
                         feeStructureEntityData = feeRepo.save(feeStructureEntityData);
-
                         return FeeStructure.build(deptEntity.get().getDepartmentName(),request.getSem(), request.getSemfee());
                     }
                 }

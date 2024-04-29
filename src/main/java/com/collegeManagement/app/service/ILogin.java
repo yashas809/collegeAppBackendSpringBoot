@@ -7,6 +7,8 @@ public interface ILogin {
 
     public LoginEntity createLogin(Login logindata);
 
+    public LoginEntity updatePassword(String loginName,String password);
+
     public LoginEntity findByloginPK(Long loginPk);
 
     public LoginEntity findByloginName(String loginName);

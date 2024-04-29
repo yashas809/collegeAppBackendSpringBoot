@@ -32,8 +32,25 @@ public class ILoginImpl implements ILogin{
             e.printStackTrace();
             return null;
         }
-
     }
+
+    @Override
+    public LoginEntity updatePassword(String loginName, String password) {
+        try
+        {
+            LoginEntity entityData = repository.findByloginName(loginName);
+            PasswordClass utlityClass = Password.Utility.EncryptPassword(password);
+            entityData.setSecretKey(utlityClass.getSalt());
+            entityData.setPassword(utlityClass.getEncryptedPassword());
+            entityData = repository.saveAndFlush(entityData);
+            return entityData;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     @Override
     public LoginEntity findByloginPK(Long loginPk) {
